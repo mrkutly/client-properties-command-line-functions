@@ -21,3 +21,18 @@ function commit {
 function commit-prod {
   cat $1 | ssh -A cp002 client-properties-new import
 }
+
+# MAKE SURE YOU ARE IN THE DIRECTORY WHERE YOU WANT YOUR WIDGET FILES WHEN YOU RUN THIS COMMAND
+# this will pull down a widget from production server to the dev nerver when you are on the dev server
+# it will also make a changes file called <WIDGET NAME>_changes.js
+# USAGE: cp-export <PUBLISHER/NETWORK NAME> <WIDGET/NAME>
+function cp-export {
+  ssh -A cp002 client-properties-new export $1 default $2 > $2.js
+  touch ${2}_changes.js
+}
+
+# Same as the above function but will not create a changes file
+# USAGE: cp-export <PUBLISHER/NETWORK NAME> <WIDGET/NAME>
+function cp-export-nc {
+  ssh -A cp002 client-properties-new export $1 default $2 > $2.js
+}

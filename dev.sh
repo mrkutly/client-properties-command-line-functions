@@ -42,3 +42,10 @@ function cp-export {
 function cp-export-nc {
   ssh -A cp002 client-properties-new export $1 default $2 > $2.js
 }
+
+# Copies widget from one pub account to another on the production server from the dev server
+# USAGE: cp-copy <FROM PUB-NAME> <ORIGINAL WIDGET> <TO PUB-NAME> <NEW COPY WIDGET-NAME>
+
+function cp-copy {
+  ssh -A cp002 client-properties-new copy  $1 default $2 to $3 default $4 | client-properties-new import 
+}

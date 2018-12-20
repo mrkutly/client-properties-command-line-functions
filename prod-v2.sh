@@ -58,3 +58,17 @@ function cp-export-nc {
 function cp-copy {
   client-properties-new copy  $1 default $2 to $3 default $4 | client-properties-new import
 }
+
+# Copies widget from within a pub account to the same account
+# USAGE: cp-copy-sp <PUB-NAME> <ORIGINAL WIDGET> <NEW COPY WIDGET-NAME>
+#  OR
+# if you are in a folder that has the same name as the pub name: cp-copy-sp <ORIGNIAL WIDGET> <NEW COPY NAME>
+function cp-copy-sp {
+    if [ ! -z $3 ]
+    then
+        client-properties-new copy $1 default $2 to $1 default $3 | client-properties-new import
+    else
+        pub=`basename $(pwd)`
+        client-properties-new copy ${pub} default $1 to ${pub} default $2 | client-properties-new import
+    fi
+}
